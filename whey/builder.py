@@ -420,6 +420,7 @@ class AbstractBuilder(ABC):
 			for value in self.config[key]:
 				metadata_mapping[field] = str(value)
 
+		add_multiple("dynamic", "Dynamic")
 		metadata_mapping.update(self.parse_authors())
 
 		add_not_none("description", "Summary")
@@ -478,7 +479,7 @@ class AbstractBuilder(ABC):
 		:param metadata_file:
 		"""
 
-		metadata_file.write_text(metadata.dumps(metadata_mapping))
+		metadata_file.write_clean(metadata.dumps(metadata_mapping))
 		self.report_written(metadata_file)
 
 	def call_additional_hooks(self):
